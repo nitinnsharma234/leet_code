@@ -1,44 +1,25 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        // Building frequency map
-        int freq[26] = {0};
-        for (char &ch : tasks) {
-            freq[ch - 'A']++;
+     int freq[26] = {0};
+        int maxCount = 0;
+
+        // Count the frequency of each task and find the maximum frequency
+        for (char task : tasks) {
+            freq[task - 'A']++;
+            maxCount = max(maxCount, freq[task - 'A']);
         }
 
-        // Max heap to store frequencies
-        priority_queue<int> pq;
-        for (int i = 0; i < 26; i++) {
-            if (freq[i] > 0) {
-                pq.push(freq[i]);
+        // Calculate the total time needed for execution
+        int time = (maxCount - 1) * (n + 1);
+        for (int f : freq) {
+            if (f == maxCount) {
+                time++;
             }
         }
 
-        int time = 0;
-        // Process tasks until the heap is empty
-        while (!pq.empty()) {
-            int cycle = n + 1;
-            vector<int> store;
-            int taskCount = 0;
-            // Execute tasks in each cycle
-            while (cycle-- && !pq.empty()) {
-                if (pq.top() > 1) {
-                    store.push_back(pq.top() - 1);
-                }
-                pq.pop();
-                taskCount++;
-            }
-            cout<<pq.empty();
-            // Restore updated frequencies to the heap
-            for (int &x : store) {
-                pq.push(x);
-            }
-            // Add time for the completed cycle
-            int x = pq.empty()? taskCount:n+1;
-            cout<<x<<" ";
-            time += (pq.empty() ? taskCount : n + 1);
+        // Return the maximum of total time needed and the length of the task list
+        return max((int)tasks.size(), time);
         }
-        return time;
-    }
 };
+
