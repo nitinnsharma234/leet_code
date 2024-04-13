@@ -61,7 +61,7 @@ public:
                     dp[i]+=1;
                 }
             }
-            print(dp,col);
+
             maximum=max(maximum,stock_span(dp,col));
         }
         return maximum;
