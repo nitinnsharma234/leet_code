@@ -12,10 +12,7 @@ public:
             if(mp.find(element)!=mp.end()){
                     count+=mp[element];
             }
-            
-            
             mp[sum]++;
-            cout<<mp[sum]<<" ";
        } 
        return count;
     }
