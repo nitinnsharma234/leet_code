@@ -28,16 +28,13 @@ ListNode * mergeTwoLists(ListNode* h1 , ListNode* h2){
         }
         temp=temp->next;
     }
-     while(h1!=nullptr){
+     if(h1!=nullptr){
             temp->next =h1;
-                h1=h1->next;
-                 temp=temp->next;
-
+               
         }
-         while(h2!=nullptr){
+         if(h2!=nullptr){
             temp->next =h2;
-                h2=h2->next;
-                 temp=temp->next;
+                
 
         }
         
