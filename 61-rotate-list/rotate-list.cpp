@@ -19,36 +19,27 @@ public:
         ListNode * tailLeft=nullptr;
         //tail for left side 
         ListNode * tailRight = nullptr ;
-        int len =0;
+        int len =1;
         //tail of right side after splitting
-        while(slow!=nullptr){
+        while(slow->next!=nullptr){
             slow=slow->next;
             len++;
         }
         k %=len;
-        cout<<k<<endl;
-        slow=head;
+        int p =len-k;
+        
+        // slow=head;
         if(k==0){
             return head;
         }
-        while(k>0){
-                tailLeft=fast;
-                fast = fast->next ;
-                k--;
+        slow->next =head;
+        while(p--){
+                slow = slow ->next;
         }
         // this will be tail after rotating
      
-
-        while(fast!=nullptr){
-            tailLeft=slow;
-            slow=slow->next;
-            tailRight=fast;
-            fast=fast->next;
-        }
-        // setting kth node tail to initial head
-           tailLeft->next =nullptr;
-        cout<<tailLeft->val<<" "<<slow->val<<" "<<tailRight->val;
-        tailRight->next =head;
-        return slow ;
+        head =slow->next;
+        slow->next = NULL;
+        return head;
     }
 };
