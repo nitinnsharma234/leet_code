@@ -31,11 +31,7 @@ ListNode * root=nullptr;
         curr= nextPtr;
         
     }
-    while(curr!=nullptr){
-        cout<<curr->val<<"->";
-        curr=curr->next;
-    }
-    cout<<endl;
+   
 
 
 }
