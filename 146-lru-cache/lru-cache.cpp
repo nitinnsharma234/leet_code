@@ -9,26 +9,20 @@ public:
     }
     
     int get(int key) {
-        if(mp.find(key)!=mp.end()){
-            list<pair<int,int>>::iterator it =mp[key];
-            pair<int,int>pair  =*it;
-           int  val=pair.second;
-            ll.erase(it);
-            mp.erase(key);
-            ll.push_front({key,val});
-            mp[key]=ll.begin();
-            return val;
-            //return *mp[key];
+        if(mp.find(key)==mp.end()){
+            return -1;
         }
-        return -1;
+           ll.splice(ll.begin(),ll,mp[key]);
+           return mp[key]->second;
+            //return *mp[key];
+        
     }
     
     void put(int key, int value) {
             // if exists update it 
-            if(mp.find(key)!=mp.end()){
-                auto it = mp[key];
-                ll.erase(it);
-                mp.erase(key);
+            if(get(key)!=-1){
+                 mp[key]->second=value;
+                 return;
             }
             if(mp.size()>=myCap){
                int key =ll.back().first;
