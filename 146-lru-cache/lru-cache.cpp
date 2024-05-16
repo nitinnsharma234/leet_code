@@ -30,7 +30,7 @@ public:
                mp.erase(key);
                // ll.pop_back();
             }
-            ll.push_front({key,value});
+            ll.emplace(ll.begin(), key, value); 
             mp[key]=ll.begin();
 
     }
