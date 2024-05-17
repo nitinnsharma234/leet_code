@@ -17,7 +17,7 @@ public:
     string reverseWords(string s) {
        
         string st = reversed(s);
-        cout<<"'"<<st<<"'";
+       // cout<<"'"<<st<<"'";
         return st;
     }
 };
