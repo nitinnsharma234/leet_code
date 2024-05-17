@@ -1,34 +1,28 @@
 class Solution {
 public:
-   
-    
+
+    string expand(int i , int j,string s){
+        int left =i;
+        int right=j;
+        while(left>=0 and right<s.size() and s[left]==s[right]){
+            left--;
+            right++;
+        }
+        return s.substr(left+1, right-left-1);
+    }
     string longestPalindrome(string s) {
-        int n = s.size(); 
-       // string ans ="";
-        //array of size 2
-        pair<int,int> ans ={0,0};
-        vector<vector<bool>> dp (n,vector<bool>(n,false));
-        //making single one true
-        for(int i =0;i<n;i++){
-                dp[i][i]=1;
-                ans ={i,i};
-        }
-        for (int i =0 ;i<n-1;i++){
-            if (s[i]==s[i+1]){
-                dp[i][i+1]=1;
-                ans={i,i+1};
+        string ans="";
+        for (int i =0;i<s.size();i++){
+            string odd = expand (i,i,s);
+            if (ans.size()< odd.size()){
+                ans =odd;
+            }
+            string even= expand(i,i+1,s);
+             if (ans.size()<even.size()){
+                ans =even;
             }
         }
-        for(int diff =2 ; diff<n;diff++){
-            for (int i=0;i<n-diff;i++){
-                int j = i+diff;
-              if (s[i]==s[j] && dp[i+1][j-1]){
-                dp[i][j]=1;
-                ans ={i,j };            
-                 };
-            }
-        }
-        return s.substr (ans.first, ans.second-ans.first+1);
+            return ans ;
+
     }
 };
-//babad 
