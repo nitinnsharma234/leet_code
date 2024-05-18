@@ -1,83 +1,55 @@
 class Solution {
 public:
- //prints all occurrences of pattern in text using Z algo
-int search(string text, string pattern)
-{
-    // Create concatenated string "P$T"
-    string concat = pattern + "$" + text;
-    int l = concat.length();
- 
-    // Construct Z array
-    int Z[l];
-    getZarr(concat, Z);
- 
-    // now looping through Z array for matching condition
-    for (int i = 0; i < l; ++i)
+vector<int> LSP(string needle){
+    vector<int> pi(needle.size(),0);
+    int i =1;
+    int n = needle.size() ; 
+    int len =0;
+    while(i<n)
     {
-        // if Z[i] (matched region) is equal to pattern
-        // length we got the pattern
-        if (Z[i] == pattern.length())
-            {cout << "Pattern found at index "
-                << i - pattern.length() -1 << endl;
-                return i-pattern.length()-1;}
-    }
-    return -1;
-}
- 
-// Fills Z array for given string str[]
-void getZarr(string str, int Z[])
-{
-    int n = str.length();
-    int L, R, k;
- 
-    // [L,R] make a window which matches with prefix of s
-    L = R = 0;
-    for (int i = 1; i < n; ++i)
-    {
-        // if i>R nothing matches so we will calculate.
-        // Z[i] using naive way.
-        if (i > R)
-        {
-            L = R = i;
- 
-            // R-L = 0 in starting, so it will start
-            // checking from 0'th index. For example,
-            // for "ababab" and i = 1, the value of R
-            // remains 0 and Z[i] becomes 0. For string
-            // "aaaaaa" and i = 1, Z[i] and R become 5
-            while (R<n && str[R-L] == str[R])
-                R++;
-            Z[i] = R-L;
-            R--;
+        if (needle[i]==needle[len]){
+            len++;
+            pi[i]=len;
+            i++;
         }
-        else
-        {
-            // k = i-L so k corresponds to number which
-            // matches in [L,R] interval.
-            k = i-L;
- 
-            // if Z[k] is less than remaining interval
-            // then Z[i] will be equal to Z[k].
-            // For example, str = "ababab", i = 3, R = 5
-            // and L = 2
-            if (Z[k] < R-i+1)
-                Z[i] = Z[k];
- 
-            // For example str = "aaaaaa" and i = 2, R is 5,
-            // L is 0
-            else
-            {
-                // else start from R and check manually
-                L = i;
-                while (R<n && str[R-L] == str[R])
-                    R++;
-                Z[i] = R-L;
-                R--;
+        else{
+            if(len!=0){
+            len = pi[len-1];
+        
+            }
+            else{
+               // len=0;//
+                pi[i]=0;
+                i++;
             }
         }
+        
     }
+    return pi;
 }
-    int strStr(string haystack, string needle) {
-            return search (haystack,needle);
+    int strStr(string s1, string s2) {
+        vector<int>lsp =LSP(s2);
+        int i =0, j=0;
+        int n =s1.size() , m =s2.size();
+        while((n-i>0) and (m-j>0)){
+            if (s1[i]==s2[j]){
+                i++;
+                j++;
+            }
+             if (j == m) {
+            cout<<"Found pattern at index %d "<<i-j;
+            //j = lsp[j - 1];
+            return i-j;
+        }
+             else if (i < n && s1[i] != s2[j]) {
+           
+            if (j != 0)
+                j = lsp[j - 1];
+            else
+                i = i + 1;
+        }
+           
+        }
+        return -1;
     }
 };
