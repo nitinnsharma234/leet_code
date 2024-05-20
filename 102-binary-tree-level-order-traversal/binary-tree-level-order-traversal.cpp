@@ -11,33 +11,30 @@
  */
 class Solution {
 public:
+
+    void preorder(TreeNode* root , vector<vector<int>>& ans , int height){
+
+        if(root==NULL){
+            return;
+        }
+        if(ans.size()-1<height){
+            cout<<"Yess"<<height<<" "<<ans.size()<<endl;
+            ans.push_back({});
+            cout<<"No"<<height<<" "<<ans.size()<<endl;
+
+        }
+        ans[height].push_back(root->val);
+        preorder(root->left,ans,height+1);
+        preorder(root->right,ans,height+1);
+
+    }
     vector<vector<int>> levelOrder(TreeNode* root) {
-        queue<TreeNode*> q ; 
-        q.push(root);
-       
-        int depth =1;
-        vector<vector<int>> ans ;
-         if(!root){
+        vector<vector<int>>ans ; 
+        if(root==nullptr){
             return ans ;
         }
-        while(!q.empty()){
-            vector<int> temp;
-            int n =q.size();
-            while(n--){
-                TreeNode* curr = q.front();
-                q.pop();
-                temp.push_back(curr->val);
-                if(curr->left){
-                    q.push(curr->left);
-                }
-                if(curr->right){
-                    q.push(curr->right);
-                }
-            }
-           //if(depth%2) reverse(temp.begin(),temp.end());
-            depth++;
-            ans.push_back(temp);
-        }
+        ans.push_back({});
+        preorder(root,ans,0);
         return ans ;
     }
 };
