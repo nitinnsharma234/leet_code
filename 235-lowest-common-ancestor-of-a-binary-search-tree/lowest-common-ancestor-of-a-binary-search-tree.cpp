@@ -15,8 +15,12 @@ public:
         if (p==root or q==root){
             return root;
         }
-        TreeNode*a =lowestCommonAncestor(root->left,p,q);
-        TreeNode*b =lowestCommonAncestor(root->right,p,q);   
+        TreeNode*b =NULL;
+        TreeNode*a=NULL;
+        if(p->val<=root->val or q->val<=root->val)
+        {a =lowestCommonAncestor(root->left,p,q);}
+        if(p->val>=root->val or q->val>=root->val)
+        {b=lowestCommonAncestor(root->right,p,q);   }
           if (a and b ){
             return root;
         }
