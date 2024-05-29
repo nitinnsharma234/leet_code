@@ -13,7 +13,7 @@ public:
     }
     
     int climbStairs(int n) {
-        vector<int>dp(n+1, -1 );
+        // vector<int>dp(n+1, -1 );
         // bottom up approach 
        int i1 =1;
         int i2=1;
@@ -26,7 +26,7 @@ public:
             i1=ans;
         }
         return ans;
-        return util(n,dp);
+        // return util(n,dp);
 
     }
 
