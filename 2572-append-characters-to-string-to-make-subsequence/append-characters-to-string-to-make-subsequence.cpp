@@ -1,23 +1,16 @@
 class Solution {
 public:
     int appendCharacters(string s, string t) {
-     int lo=0;
-     for (int i =0;i<t.length();i++){
-        //cout<<i<<" ";
-        int j=lo;
-        for ( ;j<s.length();j++){
-            //cout<<"j is"<<j<<endl;
-            if (t[i]==s[j]){
-                lo=j+1;
+        int l=0, k=0;
+        int n =s.length(); 
+        int m = t.length();
 
-                break;
+        while(l<n && k<m){
+            if (s[l]==t[k]){
+                k++;
             }
+            l++;
         }
-        if(j==s.length() && i!=t.length()){
-            return (t.length()-i);
-        }
-
-     }
-            return 0;
+        return m-k;
     }
 };
