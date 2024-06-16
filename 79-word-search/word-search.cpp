@@ -39,8 +39,9 @@ public:
         vector<vector<int>> vis (r,vector<int>(c,0));
         for(int i =0;i<board.size();i++){
             for(int j=0;j<board[0].size();j++){
-               bool a = traverse(i,j,0,board,word,vis);
-               if(a) return true;
+                if(board[i][j]==word[0])
+            {   bool a = traverse(i,j,0,board,word,vis);
+               if(a) return true;}
             }
         }
         return false;
