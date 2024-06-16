@@ -3,11 +3,13 @@ public:
     int maxProfit(vector<int>& prices) {
         int ans =0;
         int bp=prices[0];
-        for(auto x : prices ){
-            bp=min(bp,x);
-            ans =max (ans, x-bp);
+        for(int i =1;i<prices.size();i++){
+            if(prices[i]<bp){
+                bp=prices[i];
+            }
+           // cout<<bp<<endl;
+            ans=max(prices[i]-bp,ans);
         }
-        return ans ;
+        return ans;
     }
 };
-//brute force app
