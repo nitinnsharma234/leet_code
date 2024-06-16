@@ -31,7 +31,7 @@ public:
             left.push(right.top());
             right.pop();
         }
-             cout<<"endl"<<right.size()<<" "<<left.size()<<"--> "<<endl;
+           //  cout<<"endl"<<right.size()<<" "<<left.size()<<"--> "<<endl;
 
         //  cout<<left.size()<<endl;
         count++;
