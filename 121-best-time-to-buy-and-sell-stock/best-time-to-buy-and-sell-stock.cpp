@@ -6,6 +6,7 @@ public:
         for(int i =1;i<prices.size();i++){
             if(prices[i]<bp){
                 bp=prices[i];
+                continue;
             }
            // cout<<bp<<endl;
             ans=max(prices[i]-bp,ans);
