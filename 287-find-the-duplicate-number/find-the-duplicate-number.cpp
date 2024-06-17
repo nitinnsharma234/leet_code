@@ -1,13 +1,14 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int i =0;
-        while(nums[i]!=-1){
-            int x =nums[i];
-            cout<<i<<" ";
-            nums[i]=-1;
-            i=x;
+        
+        for(int i =0;i<nums.size();i++){
+            int  x =abs(nums[i]);
+            if(nums[x]<0){
+                return x;
+            }
+            nums[x]=-1*nums[x];
         }
-        return i;
+        return 0;
     }
 };
