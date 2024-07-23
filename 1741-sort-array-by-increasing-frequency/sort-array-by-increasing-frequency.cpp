@@ -22,7 +22,7 @@ public:
        int i =0;
        for(auto x : freq){
         int f =x.second;
-        cout<<x.first<<" "<<f<<endl;
+        // cout<<x.first<<" "<<f<<endl;
 
             while(f--){
                 nums[i++]=x.first;
