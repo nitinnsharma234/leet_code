@@ -10,7 +10,6 @@ public:
         if (mp[x]==1){
            
             k--;
-             cout<<k<<" ";
         }
         if(k==0) return x;
       }
