@@ -10,12 +10,14 @@ public:
         sort(vt.begin(),vt.end(), std::greater<>());
         int k =0;
         for(int i =0;i<26;i++){
+            if(vt[i]==0)break;
             ans +=(vt[i]*count);
             k++;
             if(k==8 ){
                 count++;
                 k=0;
             }
+
 
         }
 
