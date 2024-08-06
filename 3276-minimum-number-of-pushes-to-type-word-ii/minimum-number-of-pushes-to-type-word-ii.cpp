@@ -8,10 +8,6 @@ public:
         }
         int count =1 ;
         sort(vt.begin(),vt.end(), std::greater<>());
-        for(auto x: vt){
-            cout<<x<<" ";
-        }
-        cout<<endl;
         int k =0;
         for(int i =0;i<26;i++){
             ans +=(vt[i]*count);
@@ -19,7 +15,6 @@ public:
             if(k==8 ){
                 count++;
                 k=0;
-                cout<<endl;
             }
 
         }
