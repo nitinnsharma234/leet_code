@@ -4,18 +4,22 @@ public:
         int curr=0;
         int count =0;
         int bits=floor(log2(k)) + 1; 
-        for(int i =0;i<s.size();i++){
-            char ch = s[s.size()-1-i];
+       int n =s.size()-1;
+       int j=0;
+       while(n>=0){
+            char ch =s[n];
             if(ch=='1'){
-                if(i<bits && curr+(1<<i)<=k){
+                if(j<=bits && curr+(1<<j)<=k){
+                    curr+=(1<<j);
                     count++;
-                    curr+=1<<i;
                 }
             }
             else{
                 count++;
             }
-        }
+            j++;
+            n--;
+       }
         return count;
     }
 };
