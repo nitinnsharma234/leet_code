@@ -2,25 +2,18 @@ class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
         int i =1;
-        
-        int curr_el =nums[0];
-        int ptr=1;
-        while(i<nums.size()){
-           
-            if( curr_el !=nums[i]){
-                curr_el = nums[i];
-                nums[ptr++]=curr_el;
+        int n = nums.size();
+        int curr=nums[0];int ptr=1;
+        while(i<n){
+            if(curr!=nums[i]){
+                curr=nums[i];
+                nums[ptr]=curr;
+                ptr++;
             }
             else{
                 i++;
             }
-
         }
-
         return ptr;
     }
 };
-
-
-// normally increasing order 
-// ptr approach 
