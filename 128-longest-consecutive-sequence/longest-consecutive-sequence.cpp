@@ -1,28 +1,25 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        if(nums.size()==0){
-            return 0;
+        map<int, int> m1;
+        for (int x : nums) {
+            m1[x]++;
         }
-        int max_len =1;
-        int ans =1;
+        int length = 0;
+        int curr_el=-2;
+        int ans =0;
+        for (auto& [key, val] : m1) {
 
-        for (int i =1;i<nums.size();i++ ){
-            if(nums[i]==nums[i-1]){
-                continue;
-            }
-            if (nums[i]==nums[i-1]+1){
-                cout<<max_len<<" ";
-                max_len++;
+            if(key==curr_el+1){
+                length++;
             }
             else{
-               
-                max_len=1;
+                
+                length=1;
             }
-             ans=max(ans,max_len);
+            curr_el=key;
+            ans=max(length,ans);
         }
-        return ans ;
-        
+        return ans;
     }
 };
