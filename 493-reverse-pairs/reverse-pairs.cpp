@@ -48,9 +48,6 @@ int     count=0;
         int s=0; 
         int end = nums.size()-1;
         sortt(nums,0,end);
-        for(auto x : nums){
-            cout<<x<<" ";
-        }
         return count;
     }
 };
