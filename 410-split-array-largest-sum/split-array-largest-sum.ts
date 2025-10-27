@@ -8,7 +8,6 @@ function splitArray(nums: number[], k: number): number {
                 partition++;
             }
             sum+=x;
-            console.log(partition);
             if(partition>k) return false;
         }
         return true;
@@ -22,7 +21,7 @@ function splitArray(nums: number[], k: number): number {
     let ans:number=low;
     while(low<=high){
         let mid:number=Math.floor((low+high)/2);
-        console.log("Mid",mid)
+
         if(canBeSplit(nums,k,mid)){
             ans=mid;
             high=mid-1;
