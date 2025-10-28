@@ -1,45 +1,29 @@
 function countValidSelections(nums: number[]): number {
    
-    function isValid(nums: number[],idx:number, dir:number):number{
-        if(idx<0 || idx>=nums.length) return 0;
-        const newArr=[...nums];
-        let k:number =idx;
-        let n : number = nums.length;
-        let d :number =dir;
-        console.log(nums);
-
-        while(k>=0 && k<n){
-
-            if(newArr[k]==0){
-                  k=k+d;
-                continue;
-            }
-            else{
-                newArr[k]--;
-                
-                d=-d;
-                k=k+d;
-            }
-        }
-        let sum: number =0;
-        for(const x of newArr ){
-            sum+=x;
-        }
-        console.log("-----");
-        return sum==0?1:0;
-   }
-
+    
+      let n : number = nums.length;
     let zeroIndexes:number []=[];
+    let prefix: number[] = new Array(n + 1).fill(0);
+    let suffix: number[] = new Array(n + 1).fill(0);
    for(let i =0;i<nums.length;i++){
         if(nums[i]==0){
             zeroIndexes.push(i);
         }
+        prefix[i+1]=prefix[i]+nums[i];
    }
+    for(let i =n-1;i>=0;i--){
+      
+        suffix[i]=suffix[i+1]+nums[i];
+   }
+   console.log(prefix);
+   console.log(suffix);
+   
    let validWays:number =0;
    for(const x of zeroIndexes){
-       let  a:number = isValid(nums,x,-1)
-      let   b:number = isValid(nums,x,+1);
-        validWays+= (a+b)
+      let lft:number = prefix[x]-prefix[0];
+        let rt: number = suffix[x]-suffix[n];
+        if(lft==rt) validWays+=2;
+        if(Math.abs(lft-rt)==1 )validWays++;
    }
    return validWays;
 };
