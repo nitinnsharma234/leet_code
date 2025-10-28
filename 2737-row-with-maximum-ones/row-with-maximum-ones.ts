@@ -15,7 +15,7 @@ function rowAndMaximumOnes(mat: number[][]): number[] {
             }
 
         }
-        console.log(ans);
+
         return ans==-1?0:row.length-ans ;
 
     }
