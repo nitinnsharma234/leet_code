@@ -5,7 +5,8 @@ function searchMatrix(matrix: number[][], target: number): boolean {
 
     let i : number =0;
     let j: number =n-1; 
-    while(i<m && j<n){
+    while(i<m && j>=0){
+
         if(matrix[i][j]== target) return true;
         if( matrix[i][j]>target) j=j-1;
         else {i=i+1;}
