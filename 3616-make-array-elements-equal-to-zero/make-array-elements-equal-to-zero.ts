@@ -15,8 +15,6 @@ function countValidSelections(nums: number[]): number {
       
         suffix[i]=suffix[i+1]+nums[i];
    }
-   console.log(prefix);
-   console.log(suffix);
    
    let validWays:number =0;
    for(const x of zeroIndexes){
