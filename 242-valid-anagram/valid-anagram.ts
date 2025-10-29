@@ -1,13 +1,14 @@
 function isAnagram(s: string, t: string): boolean {
     if (s.length != t.length) return false;
-    let mp = new Map<string, number>();
+     const mp: Record<string, number> = {};
 
     for (let i = 0; i < s.length; i++) {
-        mp.set(s[i], (mp.get(s[i]) || 0) + 1);
-        mp.set(t[i], (mp.get(t[i]) || 0) - 1);
+        mp[s[i]] = (mp[s[i]] || 0) + 1;
+        mp[t[i]] = (mp[t[i]] || 0) - 1;
     }
-    for (const [key, value] of mp) {
-        if (value != 0) return false;
+
+    for (const key in mp) {
+        if (mp[key] !== 0) return false;
     }
     return true;
 };
