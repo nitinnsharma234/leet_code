@@ -11,30 +11,23 @@
  */
 
 function modifiedList(nums: number[], head: ListNode | null): ListNode | null {
-    let freq: number [] = new Array(100000).fill(0)
-
-    for(const x of nums){
-        freq[x]=1;
-    }
-    let root :ListNode | null = head;
-    let prev:ListNode | null =null;
-    while(root!=null){
-        let y : number = root.val;
-        if(freq[y]){
-            if(root==head){
-                head=head.next;
-               
-            }
-            else{
-                prev.next=root.next;
-
-            }
+     const numsSet = new Set(nums);
+    
+    // Create dummy node to handle head deletion elegantly
+    const dummy = new ListNode(0, head);
+    let prev = dummy;
+    let curr = head;
+    
+    while (curr !== null) {
+        if (numsSet.has(curr.val)) {
+            // Skip current node
+            prev.next = curr.next;
+        } else {
+            // Keep current node, advance prev
+            prev = curr;
         }
-      else{
-          prev=root;
-        
-      }
-      root=root.next;
+        curr = curr.next;
     }
-    return head;
+    
+    return dummy.next;
 };
