@@ -1,27 +1,18 @@
 function minCost(colors: string, neededTime: number[]): number {
-    let prev: string = "Z";
-    let ans: number = 0;
+   let totalCost = 0;
+  let maxTimeInGroup = neededTime[0]; // track max in current color group
 
-    for (let i = 0; i < colors.length;) {
-
-        if (prev == colors[i]) {
-            let min: number = neededTime[i-1];
-
-            let sum_min: number = neededTime[i-1];
-            while (prev == colors[i]) {
-                min = Math.max(min, neededTime[i])
-                sum_min += neededTime[i];
-                //   console.log(prev, "_____", colors[i])
-                i++;
-            }
-            // console.log(sum_min, "_____", min)
-            ans += (sum_min) - min;
-        }
-        else {
-        prev = colors[i];
-            i++;
-        }
-
+  for (let i = 1; i < colors.length; i++) {
+    if (colors[i] === colors[i - 1]) {
+      // same color as previous → need to remove one
+      totalCost += Math.min(maxTimeInGroup, neededTime[i]);
+      // keep the higher time balloon
+      maxTimeInGroup = Math.max(maxTimeInGroup, neededTime[i]);
+    } else {
+      // new color → reset max tracker
+      maxTimeInGroup = neededTime[i];
     }
-    return ans;
+  }
+
+  return totalCost;
 };
