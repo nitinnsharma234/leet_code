@@ -21,7 +21,7 @@ function findXSum(nums: number[], k: number, y: number): number[] {
             return b[0] - a[0];   // ascending by first element
         });
 
-        console.log(newFreq)
+        // console.log(newFreq)
 
          let sum: number = 0;
         for (let i = 0; i < y; i++) {
