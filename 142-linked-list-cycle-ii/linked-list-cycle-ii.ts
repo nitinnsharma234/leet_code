@@ -20,11 +20,11 @@ function detectCycle(head: ListNode | null): ListNode | null {
         fast = fast.next.next;
         slow = slow.next;
         if (fast == slow) {
-            cycle = true;
+           
             break;
         };
     }
-    if (!cycle) return null;
+    if (fast==null || fast.next==null) return null;
     while (fast != null && fast != head) {
         head = head.next;
         fast = fast.next;
