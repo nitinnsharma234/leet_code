@@ -14,7 +14,7 @@ function hasCycle(head: ListNode | null): boolean {
     if(!head) return false;
     let fwd:ListNode | null =  head.next;
     while(head!=fwd && fwd!=null && fwd.next!=null){
-        console.log("(",head.val,"  >>   ",fwd.val);
+        // console.log("(",head.val,"  >>   ",fwd.val);
         head=head.next;
         fwd=fwd.next.next;
         if(head==fwd) return true;
