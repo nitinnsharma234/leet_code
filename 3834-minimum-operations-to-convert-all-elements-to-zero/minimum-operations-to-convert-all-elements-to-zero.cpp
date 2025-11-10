@@ -16,10 +16,3 @@ public:
        return count;
     }
 };
-// i do think the solution would be to do all the unique non-zero elemenets
-//count them and do it 
-// and it should be in range o to o
-
-
-
-//1 2 3 4 5 1
