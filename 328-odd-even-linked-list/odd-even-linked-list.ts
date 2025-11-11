@@ -22,13 +22,13 @@ function oddEvenList(head: ListNode | null): ListNode | null {
     while(root!=null){
 
             if(i%2==0){
-                 console.log(root.val,"--->")
+
                 evenHead.next =root;
                 evenHead=evenHead.next;
                 // evenHead.next=null;
             }
             else{
-                console.log(root.val,">")
+
                 oddHead.next=root;
                 oddHead=oddHead.next;
                 // oddHead.next=null;
