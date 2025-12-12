@@ -1,65 +1,61 @@
 function countMentions(numberOfUsers: number, events: string[][]): number[] {
 
-    const users: number[] = new Array(numberOfUsers).fill(0);
-    function compareNumbers(a:string[], b:string[]):number {
-        const numA = Number(a[1]);
-  const numB = Number(b[1]);
+    // Result: mention count for each user
+    const mentionsCount = new Array(numberOfUsers).fill(0);
 
-  if (numA !== numB) {
-    return numA - numB; // normal numeric sort
-  }
+    // When does each user come back online? (0 = online initially)
+    const offlineUntil = new Array(numberOfUsers).fill(0);
 
+    // Sorting: sort by timestamp, and at same timestamp OFFLINE before MESSAGE
+    events.sort((a, b) => {
+        const t1 = Number(a[1]);
+        const t2 = Number(b[1]);
 
-  const isAOffline = a[0] === "OFFLINE";
-  const isBOffline = b[0] === "OFFLINE";
+        if (t1 !== t2) return t1 - t2;
 
-  if (isAOffline && !isBOffline) return -1; // a first
-  if (!isAOffline && isBOffline) return 1;  // b first
+        // Same timestamp: OFFLINE first
+        const isAOffline = a[0] === "OFFLINE";
+        const isBOffline = b[0] === "OFFLINE";
 
-  return 0;
-}
-events.sort(compareNumbers);
+        return (isAOffline === isBOffline) ? 0 : (isAOffline ? -1 : 1);
+    });
 
-// console.log(events);
-    const userStatus: number[] = new Array(numberOfUsers).fill(0);
-    function isUserOnline(id:number,timeStamp:number):boolean{
-        return userStatus[id]<= timeStamp;
-    }
-    for (const event of events) {
-        const type = event[0];
-        const timeStamp = +event[1];
-        const mentions = event[2];
-        if (type == "MESSAGE") {
-            if (mentions == "HERE") {
-                for (let i = 0; i < userStatus.length; i++) {
-                    if(isUserOnline(i,timeStamp)){
-                          users[i]++;
-                    }
-                }
+    // Helper: check if user is online at this timestamp
+    const isOnline = (id: number, time: number) =>
+        offlineUntil[id] <= time;
+
+    // Process events in chronological order
+    for (const e of events) {
+        const [type, timeStr, value] = e;
+        const time = Number(timeStr);
+
+        if (type === "OFFLINE") {
+            const userId = Number(value);
+            offlineUntil[userId] = time + 60;
+            continue;
+        }
+
+        // MESSAGE event
+        if (value === "ALL") {
+            // ALL = mentions every user, even offline
+            for (let i = 0; i < numberOfUsers; i++) {
+                mentionsCount[i]++;
             }
-            else if (mentions=="ALL"){
-                 for (let i = 0; i < userStatus.length; i++) {
-                        users[i]++;
-                }
-            }
-            else{
-             const ids = mentions.split(" ").map(e => +e.substring(2));
-             for(let j=0;j<ids.length;j++){
-                
-                         users[ids[j]]++;
-                    
-                
-             }
+        }
+        else if (value === "HERE") {
+            // HERE = only online users
+            for (let i = 0; i < numberOfUsers; i++) {
+                if (isOnline(i, time)) mentionsCount[i]++;
             }
         }
         else {
-            userStatus[+mentions] = +timeStamp + 60;
+            // idX explicit mentions
+            const ids = value.split(" ").map(s => Number(s.substring(2)));
+            for (const id of ids) {
+                mentionsCount[id]++;
+            }
         }
-        // console.log(users);
-
     }
-    return users;
 
-
-};
-
+    return mentionsCount;
+}
