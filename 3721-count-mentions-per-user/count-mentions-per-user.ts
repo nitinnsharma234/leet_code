@@ -20,7 +20,7 @@ function countMentions(numberOfUsers: number, events: string[][]): number[] {
 }
 events.sort(compareNumbers);
 
-console.log(events);
+// console.log(events);
     const userStatus: number[] = new Array(numberOfUsers).fill(0);
     function isUserOnline(id:number,timeStamp:number):boolean{
         return userStatus[id]<= timeStamp;
@@ -55,7 +55,7 @@ console.log(events);
         else {
             userStatus[+mentions] = +timeStamp + 60;
         }
-        console.log(users);
+        // console.log(users);
 
     }
     return users;
